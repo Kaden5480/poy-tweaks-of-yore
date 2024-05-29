@@ -16,4 +16,16 @@ namespace TweaksOfYore.Patches {
             return true;
         }
     }
+
+    /**
+     * <summary>
+     * Disables detaching from rope without using the keybind.
+     * </summary>
+     */
+    [HarmonyPatch(typeof(RopeAnchor), "AllowDetachFromRope")]
+    static class DisableInteractRope {
+        static bool Prefix() {
+            return false;
+        }
+    }
 }
