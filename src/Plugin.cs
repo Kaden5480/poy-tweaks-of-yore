@@ -13,8 +13,10 @@ namespace TweaksOfYore {
          * </summary>
          */
         public void Awake() {
-            Harmony.CreateAndPatchAll(typeof(PatchSkipItemCleaning));
-            Harmony.CreateAndPatchAll(typeof(PatchRopeDetach));
+            Harmony.CreateAndPatchAll(typeof(Patches.PatchSkipItemCleaning));
+            Harmony.CreateAndPatchAll(typeof(Patches.SkipPeakShowText));
+            Harmony.CreateAndPatchAll(typeof(Patches.SkipPeakAllowAlwaysCoroutine));
+            Harmony.CreateAndPatchAll(typeof(Patches.SkipPeakAllowAlwaysJournal));
         }
 
 
@@ -29,30 +31,5 @@ namespace TweaksOfYore {
 
 #endif
 
-        /**
-         * <summary>
-         * Patches items, so you no longer have to clean them.
-         * </summary>
-         */
-        [HarmonyPatch(typeof(ArtefactOnPeak), "SaveGrabbedItem")]
-        static class PatchSkipItemCleaning {
-            static IEnumerable<CodeInstruction> Transpiler(
-                IEnumerable<CodeInstruction> insts
-            ) {
-            }
-        }
-
-        /**
-         * <summary>
-         * Patches rope detaching, so you no longer detach
-         * from looking at a rope.
-         * </summary>
-         */
-        [HarmonyPatch(typeof(), "")]
-        static class PatchRopeDetach {
-            static bool Prefix() {
-                return true;
-            }
-        }
     }
 }
