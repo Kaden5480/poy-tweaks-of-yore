@@ -14,6 +14,8 @@ namespace TweaksOfYore {
          * </summary>
          */
         public void Awake() {
+            Harmony.CreateAndPatchAll(typeof(Patches.DisableInteractPocketWatch));
+            Harmony.CreateAndPatchAll(typeof(Patches.DisableInteractRope));
             Harmony.CreateAndPatchAll(typeof(Patches.SkipItemCleaning));
             Harmony.CreateAndPatchAll(typeof(Patches.SkipPeakShowText));
             Harmony.CreateAndPatchAll(typeof(Patches.SkipPeakAllowAlwaysCoroutine));
