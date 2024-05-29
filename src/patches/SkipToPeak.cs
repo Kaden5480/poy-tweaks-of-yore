@@ -86,7 +86,7 @@ namespace TweaksOfYore.Patches {
      */
     [HarmonyPatch(typeof(StamperPeakSummit), "StampJournal")]
     [HarmonyPatch(MethodType.Enumerator)]
-    static class SkipPeakShowText {
+    static class SkipPeakAllowAlwaysJournal {
         static IEnumerable<CodeInstruction> Transpiler(
             IEnumerable<CodeInstruction> insts
         ) {
