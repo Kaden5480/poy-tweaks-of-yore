@@ -18,8 +18,9 @@ A quality of life mod for
 
 # Features
 - Skip cleaning items
+- Always allows skipping to the next peak
 - No longer detach rope when looking at it
-- No longer interact with pocket watch when looking at it
+- No longer interact with the pocket watch when looking at it
 
 # Installing
 ## BepInEx
