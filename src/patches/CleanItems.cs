@@ -22,7 +22,7 @@ namespace TweaksOfYore.Patches {
                 // an *_IsDirty field
                 if (buf != null) {
                     if (inst.opcode == OpCodes.Stfld
-                            && ((FieldInfo) inst.operand).EndsWith("IsDirty")) {
+                            && ((FieldInfo) inst.operand).Name.EndsWith("IsDirty")) {
                         // Is an *_IsDirty field, so store false instead
                         buf.opcode = OpCodes.Ldc_I4_0;
                     }
