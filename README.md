@@ -46,7 +46,7 @@ If you haven't installed MelonLoader yet, follow the install instructions here:
 
 # Building from source
 Whichever approach you use for building from source, the resulting
-patcher and plugin can be found in `bin/`.
+plugin/mod can be found in `bin/`.
 
 The following configurations are supported:
 - Debug-BepInEx
