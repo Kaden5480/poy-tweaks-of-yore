@@ -1,31 +1,22 @@
-using HarmonyLib;
+using System.Reflection;
 
-namespace TweaksOfYore.Patches {
+using HarmonyLib;
+using UnityEngine;
+
+namespace TweaksOfYore.Patches.Inv {
     /**
      * <summary>
-     * Disables using the pocket watch without using the keybind.
+     * Disables detaching ropes by looking down at the belt.
      * </summary>
      */
-    [HarmonyPatch(typeof(Inventory), "FetchPocketWatch")]
-    static class DisableInteractPocketWatch {
-        static bool Prefix(bool usedPocketWatchFromBelt) {
-            if (usedPocketWatchFromBelt == true) {
+    [HarmonyPatch(typeof(RopeAnchor), "AllowDetachFromRope")]
+    static class DisableBeltRopeDetach {
+        static bool Prefix() {
+            if (Plugin.config.inventory.disableBeltRopeDetach.Value == true) {
                 return false;
             }
 
             return true;
-        }
-    }
-
-    /**
-     * <summary>
-     * Disables detaching from rope without using the keybind.
-     * </summary>
-     */
-    [HarmonyPatch(typeof(RopeAnchor), "AllowDetachFromRope")]
-    static class DisableInteractRope {
-        static bool Prefix() {
-            return false;
         }
     }
 }

@@ -56,12 +56,11 @@
   <ItemGroup Condition="$(Configuration.EndsWith('-BepInEx'))">
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
     <PackageReference Include="BepInEx.Core" Version="5.*"/>
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*"/>
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.EndsWith('-MelonLoader'))">
-    <PackageReference Include="LavaGang.MelonLoader" Version="0.6.1"/>
-    <PackageReference Include="MonoMod.Utils" Version="22.5.1.1"/>
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.6.6"/>
+    <PackageReference Include="Lib.Harmony" Version="2.3.3"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(OS)' == 'Unix'">
@@ -74,6 +73,18 @@
         Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' != ''"
         Update="$(ReferenceCopyLocalPaths)"
         DestinationSubDirectory="libs/"/>
+    </ItemGroup>
+  </Target>
+
+  <Target
+    Name="GeneratePluginVersion"
+    BeforeTargets="BeforeCompile">
+    <WriteLinesToFile
+      File="$(IntermediateOutputPath)/PluginInfo.cs"
+      Lines="public static class PluginInfo { public const string PLUGIN_VERSION=&quot;$(Version)&quot;%3B }"
+      Overwrite="true"/>
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)/PluginInfo.cs"/>
     </ItemGroup>
   </Target>
 </Project>

@@ -17,8 +17,9 @@ A quality of life mod for
     - [Custom game locations](#custom-game-locations)
 
 # Features
-- Skip cleaning items
-- Always allows skipping to the next peak
+- Disable the goat on the Alps cabin
+- Disable eagles once they have been found
+- Disable swans at the Castle of the Swan King
 - No longer detach rope when looking at it
 - No longer interact with the pocket watch when looking at it
 
