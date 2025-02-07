@@ -35,6 +35,12 @@ namespace TweaksOfYore {
                 "Whether to disable detaching ropes by looking at your belt and pressing the interact bind"
             );
 
+            // UI
+            config.ui.disableCruxNotifications = Config.Bind(
+                "UI", "disableCruxNotifications", false,
+                "Whether to disable crux notifications"
+            );
+
             // == Patching ==
             // Entities
             Harmony.CreateAndPatchAll(typeof(Patches.Entities.DisableCabinGoat));
@@ -43,6 +49,9 @@ namespace TweaksOfYore {
 
             // Inventory
             Harmony.CreateAndPatchAll(typeof(Patches.Inv.DisableBeltRopeDetach));
+
+            // UI
+            Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableCruxNotifications));
         }
 
 
@@ -71,6 +80,12 @@ namespace TweaksOfYore {
             inventory.SetFilePath(filePath);
 
             config.inventory.disableBeltRopeDetach = inventory.CreateEntry<bool>("disableBeltRopeDetach", false);
+
+            // UI
+            MelonPreferences_Category ui = MelonPreferences.CreateCategory("TweaksOfYore_UI");
+            ui.SetFilePath(filePath);
+
+            config.ui.disableCruxNotifications = ui.CreateEntry<bool>("disableCruxNotifications", false);
         }
 
 #endif
