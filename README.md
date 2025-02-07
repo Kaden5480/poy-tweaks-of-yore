@@ -21,7 +21,6 @@ A quality of life mod for
 - Disable eagles once they have been found
 - Disable swans at the Castle of the Swan King
 - No longer detach rope when looking at it
-- No longer interact with the pocket watch when looking at it
 
 # Installing
 ## BepInEx
