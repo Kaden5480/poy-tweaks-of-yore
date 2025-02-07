@@ -45,6 +45,12 @@ namespace TweaksOfYore {
                 "Whether to disable subtitles"
             );
 
+            // Misc
+            config.misc.skipCleaningItems = Config.Bind(
+                "Misc", "skipCleaningItems", false,
+                "Whether to skip cleaning items after collecting them"
+            );
+
             // == Patching ==
             // Entities
             Harmony.CreateAndPatchAll(typeof(Patches.Entities.DisableCabinGoat));
@@ -58,6 +64,9 @@ namespace TweaksOfYore {
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableCruxNotifications));
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCClimber));
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCSystem));
+
+            // Misc
+            Harmony.CreateAndPatchAll(typeof(Patches.Misc.SkipCleaningItems));
         }
 
 
@@ -93,6 +102,12 @@ namespace TweaksOfYore {
 
             config.ui.disableCruxNotifications = ui.CreateEntry<bool>("disableCruxNotifications", false);
             config.ui.disableSubtitles = ui.CreateEntry<bool>("disableSubtitles", false);
+
+            // Misc
+            MelonPreferences_Category misc = MelonPreferences.CreateCategory("TweaksOfYore_Misc");
+            misc.SetFilePath(filePath);
+
+            config.misc.skipCleaningItems = misc.CreateEntry<bool>("skipCleaningItems", false);
         }
 
 #endif
