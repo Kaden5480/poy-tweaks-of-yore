@@ -11,6 +11,10 @@ namespace TweaksOfYore.Patches.Misc {
     [HarmonyPatch(typeof(ArtefactOnPeak), "SaveGrabbedItem")]
     static class SkipCleaningItems {
         static void Postfix() {
+            if (Plugin.config.misc.skipCleaningItems.Value == false) {
+                return;
+            }
+
             foreach (FieldInfo info in AccessTools.GetDeclaredFields(typeof(GameManager))) {
                 string name = info.Name;
 
