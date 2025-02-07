@@ -40,6 +40,10 @@ namespace TweaksOfYore {
                 "UI", "disableCruxNotifications", false,
                 "Whether to disable crux notifications"
             );
+            config.ui.disableSubtitles = Config.Bind(
+                "UI", "disableSubtitles", false,
+                "Whether to disable subtitles"
+            );
 
             // == Patching ==
             // Entities
@@ -52,6 +56,8 @@ namespace TweaksOfYore {
 
             // UI
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableCruxNotifications));
+            Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCClimber));
+            Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCSystem));
         }
 
 
@@ -86,6 +92,7 @@ namespace TweaksOfYore {
             ui.SetFilePath(filePath);
 
             config.ui.disableCruxNotifications = ui.CreateEntry<bool>("disableCruxNotifications", false);
+            config.ui.disableSubtitles = ui.CreateEntry<bool>("disableSubtitles", false);
         }
 
 #endif

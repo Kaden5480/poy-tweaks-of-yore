@@ -50,6 +50,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="UnityEngine.UI.dll">
+      <HintPath>$(GameLibPath)/UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" PrivateAssets="all"/>
   </ItemGroup>
 
