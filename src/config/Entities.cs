@@ -12,11 +12,13 @@ namespace TweaksOfYore.Config {
         public ConfigEntry<bool> disableCabinGoat;
         public ConfigEntry<bool> disableEagles;
         public ConfigEntry<bool> disableSwans;
+        public ConfigEntry<bool> lowerMarasArchSeagullVolume;
 
 #elif MELONLOADER
         public MelonPreferences_Entry<bool> disableCabinGoat;
         public MelonPreferences_Entry<bool> disableEagles;
         public MelonPreferences_Entry<bool> disableSwans;
+        public MelonPreferences_Entry<bool> lowerMarasArchSeagullVolume;
 
 #endif
     }

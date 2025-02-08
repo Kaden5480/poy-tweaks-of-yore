@@ -28,6 +28,10 @@ namespace TweaksOfYore {
                 "Entities", "disableSwans", false,
                 "Whether to disable swans at the castle"
             );
+            config.entities.lowerMarasArchSeagullVolume = Config.Bind(
+                "Entities", "lowerMarasArchSeagullVolume", false,
+                "Whether to lower the volume of seagulls at Mara's Arch"
+            );
 
             // Inventory
             config.inventory.disableBeltRopeDetach = Config.Bind(
@@ -56,6 +60,7 @@ namespace TweaksOfYore {
             Harmony.CreateAndPatchAll(typeof(Patches.Entities.DisableCabinGoat));
             Harmony.CreateAndPatchAll(typeof(Patches.Entities.DisableEagles));
             Harmony.CreateAndPatchAll(typeof(Patches.Entities.DisableSwans));
+            Harmony.CreateAndPatchAll(typeof(Patches.Entities.LowerMarasArchSeagullVolume));
 
             // Inventory
             Harmony.CreateAndPatchAll(typeof(Patches.Inv.DisableBeltRopeDetach));
@@ -89,6 +94,7 @@ namespace TweaksOfYore {
             config.entities.disableCabinGoat = entities.CreateEntry<bool>("disableCabinGoat", false);
             config.entities.disableEagles = entities.CreateEntry<bool>("disableEagles", false);
             config.entities.disableSwans = entities.CreateEntry<bool>("disableSwans", false);
+            config.entities.lowerMarasArchSeagullVolume = entities.CreateEntry<bool>("lowerMarasArchSeagullVolume", false);
 
             // Inventory
             MelonPreferences_Category inventory = MelonPreferences.CreateCategory("TweaksOfYore_Inventory");
