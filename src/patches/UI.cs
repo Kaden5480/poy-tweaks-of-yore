@@ -10,7 +10,9 @@ namespace TweaksOfYore.Patches.UI {
     [HarmonyPatch(MethodType.Enumerator)]
     static class DisableCruxNotifications {
         static bool Prefix() {
-            if (Plugin.config.ui.disableCruxNotifications.Value == true) {
+            if (Plugin.config.speedrun.fullGame.Value == false
+                && Plugin.config.ui.disableCruxNotifications.Value == true
+            ) {
                 return false;
             }
 
@@ -26,7 +28,9 @@ namespace TweaksOfYore.Patches.UI {
     [HarmonyPatch(typeof(NPC_Climber), "LateUpdate")]
     static class DisableSubtitlesNPCClimber {
         static void Postfix(NPC_Climber __instance) {
-            if (Plugin.config.ui.disableSubtitles.Value == false) {
+            if (Plugin.config.speedrun.fullGame.Value == true
+                || Plugin.config.ui.disableSubtitles.Value == false
+            ) {
                 return;
             }
 
@@ -51,7 +55,9 @@ namespace TweaksOfYore.Patches.UI {
     [HarmonyPatch(typeof(NPCSystem), "Update")]
     static class DisableSubtitlesNPCSystem {
         static void Postfix(NPCSystem __instance) {
-            if (Plugin.config.ui.disableSubtitles.Value == false) {
+            if (Plugin.config.speedrun.fullGame.Value == true
+                || Plugin.config.ui.disableSubtitles.Value == false
+            ) {
                 return;
             }
 

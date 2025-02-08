@@ -55,6 +55,16 @@ namespace TweaksOfYore {
                 "Whether to skip cleaning items after collecting them"
             );
 
+            // Speedrun
+            config.speedrun.pocketwatch = Config.Bind(
+                "Speedrun", "pocketwatch", false,
+                "Only enable tweaks which are accepted in Pocketwatch% (and Pipe Only) runs"
+            );
+            config.speedrun.fullGame = Config.Bind(
+                "Speedrun", "fullGame", false,
+                "Only enable tweaks which are accepted in full game runs (Any%, 100%, All Peaks)"
+            );
+
             // == Patching ==
             // Entities
             Harmony.CreateAndPatchAll(typeof(Patches.Entities.DisableCabinGoat));
@@ -114,6 +124,13 @@ namespace TweaksOfYore {
             misc.SetFilePath(filePath);
 
             config.misc.skipCleaningItems = misc.CreateEntry<bool>("skipCleaningItems", false);
+
+            // Speedrun
+            MelonPreferences_Category speedrun = MelonPreferences.CreateCategory("TweaksOfYore_Speedrun");
+            speedrun.SetFilePath(filePath);
+
+            config.speedrun.pocketwatch = speedrun.CreateEntry<bool>("pocketwatch", false);
+            config.speedrun.fullGame = speedrun.CreateEntry<bool>("fullGame", false);
         }
 
 #endif

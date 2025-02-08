@@ -12,7 +12,9 @@ namespace TweaksOfYore.Patches.Inv {
     [HarmonyPatch(typeof(RopeAnchor), "AllowDetachFromRope")]
     static class DisableBeltRopeDetach {
         static bool Prefix() {
-            if (Plugin.config.inventory.disableBeltRopeDetach.Value == true) {
+            if (Plugin.config.speedrun.fullGame.Value == false
+                && Plugin.config.inventory.disableBeltRopeDetach.Value == true
+            ) {
                 return false;
             }
 

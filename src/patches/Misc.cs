@@ -11,7 +11,9 @@ namespace TweaksOfYore.Patches.Misc {
     [HarmonyPatch(typeof(ArtefactOnPeak), "SaveGrabbedItem")]
     static class SkipCleaningItems {
         static void Postfix() {
-            if (Plugin.config.misc.skipCleaningItems.Value == false) {
+            if (Plugin.config.speedrun.fullGame.Value == true
+                || Plugin.config.misc.skipCleaningItems.Value == false
+            ) {
                 return;
             }
 
