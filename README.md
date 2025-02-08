@@ -20,7 +20,11 @@ A quality of life mod for
 - Disable the goat on the Alps cabin
 - Disable eagles once they have been found
 - Disable swans at the Castle of the Swan King
+- Lower the volume of seagulls on Mara's Arch
 - No longer detach rope when looking at it
+- Disable crux notifications
+- Disable subtitles
+- Skip cleaning items after they've been collected
 
 # Installing
 ## BepInEx
