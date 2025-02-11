@@ -25,6 +25,8 @@ A quality of life mod for
 - Disable crux notifications
 - Disable subtitles
 - Skip cleaning items after they've been collected
+- Disable snow fall particles
+- Specific options for only enabling patches permitted in pocketwatch% or full game runs
 
 # Installing
 ## BepInEx
