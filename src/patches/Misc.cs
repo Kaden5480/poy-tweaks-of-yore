@@ -48,7 +48,8 @@ namespace TweaksOfYore.Patches.Misc {
      */
     static class DisableSnowFallParticles {
         public static void OnSceneLoaded() {
-            if (Plugin.config.misc.disableSnowFallParticles.Value == false) {
+            if (Plugin.config.speedrun.fullGame.Value == true
+                || Plugin.config.misc.disableSnowFallParticles.Value == false) {
                 return;
             }
 
