@@ -13,6 +13,7 @@ namespace TweaksOfYore.Patches.Inv {
     static class DisableBeltRopeDetach {
         static bool Prefix() {
             if (Plugin.config.speedrun.fullGame.Value == false
+                && Plugin.config.speedrun.pocketwatch.Value == false
                 && Plugin.config.inventory.disableBeltRopeDetach.Value == true
             ) {
                 return false;
