@@ -1,5 +1,6 @@
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 #if BEPINEX
@@ -15,6 +16,7 @@ namespace TweaksOfYore {
          * </summary>
          */
         public void Awake() {
+            // == Config ==
             // Entities
             config.entities.disableCabinGoat = Config.Bind(
                 "Entities", "disableCabinGoat", false,
@@ -54,6 +56,10 @@ namespace TweaksOfYore {
                 "Misc", "skipCleaningItems", false,
                 "Whether to skip cleaning items after collecting them"
             );
+            config.misc.disableSnowFallParticles = Config.Bind(
+                "Misc", "disableSnowFallParticles", false,
+                "Whether to disable snow fall particle effects"
+            );
 
             // Speedrun
             config.speedrun.pocketwatch = Config.Bind(
@@ -64,6 +70,9 @@ namespace TweaksOfYore {
                 "Speedrun", "fullGame", false,
                 "Only enable tweaks which are accepted in full game runs (Any%, 100%, All Peaks)"
             );
+
+            // == Scene Loading ==
+            SceneManager.sceneLoaded += OnSceneLoaded;
 
             // == Patching ==
             // Entities
@@ -82,6 +91,26 @@ namespace TweaksOfYore {
 
             // Misc
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.SkipCleaningItems));
+        }
+
+        /**
+         * <summary>
+         * Executes when this object is destroyed.
+         * </summary>
+         */
+        public void OnDestroy() {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        /**
+         * <summary>
+         * Executes when a scene is loaded.
+         * </summary>
+         * <param name="scene">The scene which loaded</param>
+         * <param name="mode">The mode the scene loaded with</param>
+         */
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+            CommonSceneLoad(scene.buildIndex, scene.name);
         }
 
 
@@ -124,6 +153,7 @@ namespace TweaksOfYore {
             misc.SetFilePath(filePath);
 
             config.misc.skipCleaningItems = misc.CreateEntry<bool>("skipCleaningItems", false);
+            config.misc.disableSnowFallParticles = misc.CreateEntry<bool>("disableSnowFallParticles", false);
 
             // Speedrun
             MelonPreferences_Category speedrun = MelonPreferences.CreateCategory("TweaksOfYore_Speedrun");
@@ -133,8 +163,22 @@ namespace TweaksOfYore {
             config.speedrun.fullGame = speedrun.CreateEntry<bool>("fullGame", false);
         }
 
+        /**
+         * <summary>
+         * Executes when a scene is loaded.
+         * </summary>
+         * <param name="buildIndex">The build index of the scene which loaded</param>
+         * <param name="sceneName">The name of the scene</param>
+         */
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName) {
+            CommonSceneLoad(buildIndex, sceneName);
+        }
+
 #endif
         public static TweaksOfYore.Config.Cfg config = new TweaksOfYore.Config.Cfg();
 
+        private void CommonSceneLoad(int buildIndex, string sceneName) {
+            Patches.Misc.DisableSnowFallParticles.OnSceneLoaded();
+        }
     }
 }

@@ -10,9 +10,11 @@ namespace TweaksOfYore.Config {
     public struct Misc {
 #if BEPINEX
         public ConfigEntry<bool> skipCleaningItems;
+        public ConfigEntry<bool> disableSnowFallParticles;
 
 #elif MELONLOADER
         public MelonPreferences_Entry<bool> skipCleaningItems;
+        public MelonPreferences_Entry<bool> disableSnowFallParticles;
 
 #endif
     }

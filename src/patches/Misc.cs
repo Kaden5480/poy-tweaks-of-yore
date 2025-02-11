@@ -1,6 +1,7 @@
 using System.Reflection;
 
 using HarmonyLib;
+using UnityEngine;
 
 namespace TweaksOfYore.Patches.Misc {
     /**
@@ -37,6 +38,31 @@ namespace TweaksOfYore.Patches.Misc {
             }
 
             GameManager.control.Save();
+        }
+    }
+
+    /**
+     * <summary>
+     * Disables snow fall particle effects.
+     * </summary>
+     */
+    static class DisableSnowFallParticles {
+        public static void OnSceneLoaded() {
+            if (Plugin.config.misc.disableSnowFallParticles.Value == false) {
+                return;
+            }
+
+            foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>()) {
+                if (obj.name.StartsWith("SnowHeapFallSmokeParticle") == false) {
+                    continue;
+                }
+
+                if (obj.GetComponent<RandomParticlePlay>() == false) {
+                    continue;
+                }
+
+                obj.SetActive(false);
+            }
         }
     }
 }
