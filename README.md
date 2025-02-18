@@ -26,6 +26,8 @@ A quality of life mod for
 - Disable subtitles
 - Skip cleaning items after they've been collected
 - Disable snow fall particles
+- Increase configurable FOV range (0 to 180)
+- Reduce the fog effect on Welkin Pass
 - Specific options for only enabling patches permitted in pocketwatch% or full game runs
 
 # Installing
