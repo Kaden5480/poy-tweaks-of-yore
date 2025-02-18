@@ -1,6 +1,7 @@
 == BepInEx ==
 If you haven't installed BepInEx yet, follow the instructions here:
-https://github.com/Kaden5480/modloader-instructions#bepinex
+Windows: https://github.com/Kaden5480/modloader-instructions#bepinex-windows
+Linux:   https://github.com/Kaden5480/modloader-instructions#bepinex-linux
 
 == Tweaks of Yore ==
 Find the Peaks of Yore game directory, this is most easily done

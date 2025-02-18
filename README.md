@@ -30,8 +30,9 @@ A quality of life mod for
 
 # Installing
 ## BepInEx
-If you haven't installed BepInEx yet, follow the install instructions
-[here](https://github.com/Kaden5480/modloader-instructions#bepinex).
+If you haven't installed BepInEx yet, follow the install instructions here:
+- [Windows](https://github.com/Kaden5480/modloader-instructions#bepinex-windows)
+- [Linux](https://github.com/Kaden5480/modloader-instructions#bepinex-linux)
 
 ### Tweaks of Yore
 - Download the latest BepInEx release
