@@ -60,6 +60,10 @@ namespace TweaksOfYore {
                 "Misc", "disableSnowFallParticles", false,
                 "Whether to disable snow fall particle effects"
             );
+            config.misc.increaseFovRange = Config.Bind(
+                "Misc", "increaseFovRange", false,
+                "Whether to increase the configurable FOV range"
+            );
 
             // Speedrun
             config.speedrun.pocketwatch = Config.Bind(
@@ -91,6 +95,7 @@ namespace TweaksOfYore {
 
             // Misc
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.SkipCleaningItems));
+            Harmony.CreateAndPatchAll(typeof(Patches.Misc.IncreaseFovRange));
         }
 
         /**
@@ -154,6 +159,7 @@ namespace TweaksOfYore {
 
             config.misc.skipCleaningItems = misc.CreateEntry<bool>("skipCleaningItems", false);
             config.misc.disableSnowFallParticles = misc.CreateEntry<bool>("disableSnowFallParticles", false);
+            config.misc.increaseFovRange = misc.CreateEntry<bool>("increaseFovRange", false);
 
             // Speedrun
             MelonPreferences_Category speedrun = MelonPreferences.CreateCategory("TweaksOfYore_Speedrun");

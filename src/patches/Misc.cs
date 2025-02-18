@@ -66,4 +66,30 @@ namespace TweaksOfYore.Patches.Misc {
             }
         }
     }
+
+    /**
+     * <summary>
+     * Increases the range of configurable FOVs.
+     * </summary>
+     */
+    [HarmonyPatch(typeof(GraphicsOptions), "Awake")]
+    static class IncreaseFovRange {
+        static void Postfix(GraphicsOptions __instance) {
+            float defaultMin = __instance.fovSlider.minValue;
+            float defaultMax = __instance.fovSlider.maxValue;
+
+            if (Plugin.config.speedrun.fullGame.Value == true
+                || Plugin.config.speedrun.pocketwatch.Value == true
+                || Plugin.config.misc.increaseFovRange.Value == false
+            ) {
+                __instance.fovSlider.value = Mathf.Min(defaultMax, Mathf.Max(
+                    __instance.fovSlider.value, defaultMin
+                ));
+                return;
+            }
+
+            __instance.fovSlider.minValue = 0f;
+            __instance.fovSlider.maxValue = 180f;
+        }
+    }
 }
