@@ -2,6 +2,7 @@ using System.Reflection;
 
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TweaksOfYore.Patches.Misc {
     /**
@@ -90,6 +91,31 @@ namespace TweaksOfYore.Patches.Misc {
 
             __instance.fovSlider.minValue = 0f;
             __instance.fovSlider.maxValue = 180f;
+        }
+    }
+
+    /**
+     * <summary>
+     * Reduces the fog effect on Welkin Pass.
+     * </summary>
+     */
+    [HarmonyPatch(typeof(PPFogDistance), "Start")]
+    static class ReduceWelkinFog {
+        static void Postfix(PPFogDistance __instance) {
+            if (Plugin.config.speedrun.fullGame.Value == true
+                || Plugin.config.speedrun.pocketwatch.Value == true
+                || Plugin.config.misc.reduceWelkinFog.Value == false
+            ) {
+                return;
+            }
+
+            // Only run on welkin pass
+            if ("Alps2_5_WelkinPass".Equals(SceneManager.GetActiveScene().name) == false) {
+                return;
+            }
+
+            AccessTools.Field(typeof(PPFogDistance), "globalDensity_original")
+                .SetValue(__instance, 0.5f);
         }
     }
 }

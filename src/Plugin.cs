@@ -64,6 +64,10 @@ namespace TweaksOfYore {
                 "Misc", "increaseFovRange", false,
                 "Whether to increase the configurable FOV range"
             );
+            config.misc.reduceWelkinFog = Config.Bind(
+                "Misc", "reduceWelkinFog", false,
+                "Whether to reduce the fog on Welkin Pass"
+            );
 
             // Speedrun
             config.speedrun.pocketwatch = Config.Bind(
@@ -96,6 +100,7 @@ namespace TweaksOfYore {
             // Misc
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.SkipCleaningItems));
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.IncreaseFovRange));
+            Harmony.CreateAndPatchAll(typeof(Patches.Misc.ReduceWelkinFog));
         }
 
         /**
@@ -160,6 +165,7 @@ namespace TweaksOfYore {
             config.misc.skipCleaningItems = misc.CreateEntry<bool>("skipCleaningItems", false);
             config.misc.disableSnowFallParticles = misc.CreateEntry<bool>("disableSnowFallParticles", false);
             config.misc.increaseFovRange = misc.CreateEntry<bool>("increaseFovRange", false);
+            config.misc.reduceWelkinFog = misc.CreateEntry<bool>("reduceWelkinFog", false);
 
             // Speedrun
             MelonPreferences_Category speedrun = MelonPreferences.CreateCategory("TweaksOfYore_Speedrun");
