@@ -68,6 +68,10 @@ namespace TweaksOfYore {
                 "Misc", "reduceWelkinFog", false,
                 "Whether to reduce the fog on Welkin Pass"
             );
+            config.misc.muteOnUnfocus = Config.Bind(
+                "Misc", "muteOnUnfocus", false,
+                "Whether to mute the game when it's no longer in focus"
+            );
 
             // Speedrun
             config.speedrun.pocketwatch = Config.Bind(
@@ -81,6 +85,7 @@ namespace TweaksOfYore {
 
             // == Scene Loading ==
             SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
 
             // == Patching ==
             // Entities
@@ -110,6 +115,7 @@ namespace TweaksOfYore {
          */
         public void OnDestroy() {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
 
         /**
@@ -123,6 +129,24 @@ namespace TweaksOfYore {
             CommonSceneLoad(scene.buildIndex, scene.name);
         }
 
+        /**
+         * <summary>
+         * Executes when a scene is unloaded.
+         * </summary>
+         * <param name="scene">The scene which unloaded</param>
+         */
+        private void OnSceneUnloaded(Scene scene) {
+            CommonSceneUnload(scene.buildIndex, scene.name);
+        }
+
+        /**
+         * <summary>
+         * Executes every frame.
+         * </summary>
+         */
+        public void Update() {
+            CommonUpdate();
+        }
 
 #elif MELONLOADER
 using MelonLoader;
@@ -166,6 +190,7 @@ namespace TweaksOfYore {
             config.misc.disableSnowFallParticles = misc.CreateEntry<bool>("disableSnowFallParticles", false);
             config.misc.increaseFovRange = misc.CreateEntry<bool>("increaseFovRange", false);
             config.misc.reduceWelkinFog = misc.CreateEntry<bool>("reduceWelkinFog", false);
+            config.misc.muteOnUnfocus = misc.CreateEntry<bool>("muteOnUnfocus", false);
 
             // Speedrun
             MelonPreferences_Category speedrun = MelonPreferences.CreateCategory("TweaksOfYore_Speedrun");
@@ -186,11 +211,40 @@ namespace TweaksOfYore {
             CommonSceneLoad(buildIndex, sceneName);
         }
 
+        /**
+         * <summary>
+         * Executes when a scene is unloaded.
+         * </summary>
+         * <param name="buildIndex">The build index of the scene which unloaded</param>
+         * <param name="sceneName">The name of the scene</param>
+         */
+        public override void OnSceneWasUnloaded(int buildIndex, string sceneName) {
+            CommonSceneUnload(buildIndex, sceneName);
+        }
+
+        /**
+         * <summary>
+         * Executes every frame.
+         * </summary>
+         */
+        public override void OnUpdate() {
+            CommonUpdate();
+        }
+
 #endif
         public static TweaksOfYore.Config.Cfg config = new TweaksOfYore.Config.Cfg();
 
         private void CommonSceneLoad(int buildIndex, string sceneName) {
             Patches.Misc.DisableSnowFallParticles.OnSceneLoaded();
+            Patches.Misc.MuteOnUnfocus.OnSceneLoaded();
+        }
+
+        private void CommonSceneUnload(int buildIndex, string sceneName) {
+            Patches.Misc.MuteOnUnfocus.OnSceneUnloaded();
+        }
+
+        private void CommonUpdate() {
+            Patches.Misc.MuteOnUnfocus.Update();
         }
     }
 }

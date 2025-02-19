@@ -2,6 +2,7 @@ using System.Reflection;
 
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace TweaksOfYore.Patches.Misc {
@@ -116,6 +117,64 @@ namespace TweaksOfYore.Patches.Misc {
 
             AccessTools.Field(typeof(PPFogDistance), "globalDensity_original")
                 .SetValue(__instance, 0.5f);
+        }
+    }
+
+    /**
+     * <summary>
+     * Mutes when the game is no longer focused.
+     * </summary>
+     */
+    static class MuteOnUnfocus {
+        private static AudioMixer mixer = null;
+        private static float oldLevel = -80f;
+        private static bool isMuted = false;
+
+        private static void Mute() {
+            if (isMuted == true) {
+                return;
+            }
+
+            mixer.GetFloat("MasterVolume", out oldLevel);
+            mixer.SetFloat("MasterVolume", -80f);
+            isMuted = true;
+        }
+
+        private static void Unmute() {
+            if (isMuted == false) {
+                return;
+            }
+
+            mixer.SetFloat("MasterVolume", oldLevel);
+            isMuted = false;
+        }
+
+        public static void OnSceneLoaded() {
+            AudioMixerOptions mixerOptions = GameObject.FindObjectOfType<AudioMixerOptions>();
+            if (mixerOptions == null) {
+                return;
+            }
+
+            mixer = mixerOptions.mixer;
+        }
+
+        public static void OnSceneUnloaded() {
+            mixer = null;
+        }
+
+        public static void Update() {
+            if (Plugin.config.misc.muteOnUnfocus.Value == false
+                || mixer == null
+            ) {
+                return;
+            }
+
+            if (Application.isFocused == false) {
+                Mute();
+            }
+            else {
+                Unmute();
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ A quality of life mod for
 - Increase configurable FOV range (0 to 180)
 - Reduce the fog effect on Welkin Pass
 - Specific options for only enabling patches permitted in pocketwatch% or full game runs
+- Mute the game when it's no longer in focus
 
 # Installing
 ## BepInEx
