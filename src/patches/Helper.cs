@@ -18,5 +18,10 @@ namespace TweaksOfYore.Patches {
             FieldInfo info = GetFieldInfo<T>(fieldName);
             info.SetValue(instance, value);
         }
+
+        public static object Invoke<T>(T instance, string methodName, object[] arguments) {
+            MethodInfo info = AccessTools.Method(typeof(T), methodName);
+            return info.Invoke(instance, arguments);
+        }
     }
 }

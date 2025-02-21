@@ -88,6 +88,10 @@ namespace TweaksOfYore.Patches.Inv {
         public static void OnSceneLoaded() {
             climbing = GameObject.FindObjectOfType<Climbing>();
             timeAttack = GameObject.FindObjectOfType<TimeAttack>();
+
+            if (timeAttack != null) {
+                Helper.Invoke<TimeAttackSetter>(timeAttack.scoreSetter, "Start", new object[] {});
+            }
         }
 
         static bool Prefix() {
