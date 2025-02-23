@@ -30,7 +30,6 @@ A quality of life mod for
 - Reduce the fog effect on Welkin Pass
 - Specific options for only enabling patches permitted in pocketwatch% or full game runs
 - Mute the game when it's no longer in focus
-- Only display the clipboard when a time/hold/rope count is a pb
 
 # Installing
 ## BepInEx

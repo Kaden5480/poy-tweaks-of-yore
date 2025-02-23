@@ -3,7 +3,7 @@
     <TargetFramework>net472</TargetFramework>
     <Platform>Any CPU</Platform>
     <AssemblyName>TweaksOfYore</AssemblyName>
-    <Version>0.6.1</Version>
+    <Version>0.7.0</Version>
     <Description>A quality of life mod for Peaks of Yore</Description>
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Configurations>Debug-BepInEx;Release-BepInEx;Debug-MelonLoader;Release-MelonLoader</Configurations>

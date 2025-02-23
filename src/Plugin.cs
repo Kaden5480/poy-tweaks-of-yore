@@ -40,10 +40,6 @@ namespace TweaksOfYore {
                 "Inventory", "disableBeltRopeDetach", false,
                 "Whether to disable detaching ropes by looking at your belt and pressing the interact bind"
             );
-            config.inventory.disableNonPbClipboard = Config.Bind(
-                "Inventory", "disableNonPbClipboard", false,
-                "Whether to disable the clipboard when the received time was not a PB"
-            );
 
             // UI
             config.ui.disableCruxNotifications = Config.Bind(
@@ -100,7 +96,6 @@ namespace TweaksOfYore {
 
             // Inventory
             Harmony.CreateAndPatchAll(typeof(Patches.Inv.DisableBeltRopeDetach));
-            Harmony.CreateAndPatchAll(typeof(Patches.Inv.DisableNonPbClipboard));
 
             // UI
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableCruxNotifications));
@@ -179,7 +174,6 @@ namespace TweaksOfYore {
             inventory.SetFilePath(filePath);
 
             config.inventory.disableBeltRopeDetach = inventory.CreateEntry<bool>("disableBeltRopeDetach", false);
-            config.inventory.disableNonPbClipboard = inventory.CreateEntry<bool>("disableNonPbClipboard", false);
 
             // UI
             MelonPreferences_Category ui = MelonPreferences.CreateCategory("TweaksOfYore_UI");
@@ -241,7 +235,6 @@ namespace TweaksOfYore {
         public static TweaksOfYore.Config.Cfg config = new TweaksOfYore.Config.Cfg();
 
         private void CommonSceneLoad(int buildIndex, string sceneName) {
-            Patches.Inv.DisableNonPbClipboard.OnSceneLoaded();
             Patches.Misc.DisableSnowFallParticles.OnSceneLoaded();
             Patches.Misc.MuteOnUnfocus.OnSceneLoaded();
         }
