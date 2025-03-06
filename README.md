@@ -30,6 +30,7 @@ A quality of life mod for
 - Reduce the fog effect on Welkin Pass
 - Specific options for only enabling patches permitted in pocketwatch% or full game runs
 - Mute the game when it's no longer in focus
+- See more accurate time records with the pocketwatch open
 
 # Installing
 ## BepInEx

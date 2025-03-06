@@ -50,6 +50,10 @@ namespace TweaksOfYore {
                 "UI", "disableSubtitles", false,
                 "Whether to disable subtitles"
             );
+            config.ui.displayAccurateRecords = Config.Bind(
+                "UI", "displayAccurateRecords", false,
+                "Whether to display accurate time records with the pocketwatch open"
+            );
 
             // Misc
             config.misc.skipCleaningItems = Config.Bind(
@@ -101,6 +105,7 @@ namespace TweaksOfYore {
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableCruxNotifications));
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCClimber));
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCSystem));
+            Harmony.CreateAndPatchAll(typeof(Patches.UI.DisplayAccurateRecords));
 
             // Misc
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.SkipCleaningItems));
@@ -181,6 +186,7 @@ namespace TweaksOfYore {
 
             config.ui.disableCruxNotifications = ui.CreateEntry<bool>("disableCruxNotifications", false);
             config.ui.disableSubtitles = ui.CreateEntry<bool>("disableSubtitles", false);
+            config.ui.displayAccurateRecords = ui.CreateEntry<bool>("displayAccurateRecords", false);
 
             // Misc
             MelonPreferences_Category misc = MelonPreferences.CreateCategory("TweaksOfYore_Misc");
