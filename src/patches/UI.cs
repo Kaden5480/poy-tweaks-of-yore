@@ -123,6 +123,10 @@ namespace TweaksOfYore.Patches.UI {
         }
 
         static void Postfix(TimeAttack __instance) {
+            if (Plugin.config.ui.displayAccurateRecords.Value == false) {
+                return;
+            }
+
             TimeAttackCategories category = GetCategory(__instance);
             float time = category.playerPrefTimes[__instance.peakNumber];
 
