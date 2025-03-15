@@ -105,7 +105,8 @@ namespace TweaksOfYore {
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableCruxNotifications));
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCClimber));
             Harmony.CreateAndPatchAll(typeof(Patches.UI.DisableSubtitlesNPCSystem));
-            Harmony.CreateAndPatchAll(typeof(Patches.UI.DisplayAccurateRecords));
+            Harmony.CreateAndPatchAll(typeof(Patches.UI.DisplayAccurateRecordsCheck));
+            Harmony.CreateAndPatchAll(typeof(Patches.UI.DisplayAccurateRecordsScore));
 
             // Misc
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.SkipCleaningItems));

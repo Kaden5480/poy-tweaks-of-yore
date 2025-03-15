@@ -1,6 +1,8 @@
 using System;
 
 using HarmonyLib;
+using UnityEngine;
+
 using TimeAttackCategories = TimeAttackSetter.TimeAttackCategories;
 
 namespace TweaksOfYore.Patches.UI {
@@ -84,8 +86,7 @@ namespace TweaksOfYore.Patches.UI {
      * with the pocketwatch open.
      * </summary>
      */
-    [HarmonyPatch(typeof(TimeAttack), "CheckRecords")]
-    static class DisplayAccurateRecords {
+    static class AccurateRecords {
         private static TimeAttackCategories GetCategory(TimeAttack timeAttack) {
             StamperPeakSummit stamper = timeAttack.summitStamper;
             TimeAttackSetter setter = timeAttack.scoreSetter;
@@ -122,13 +123,13 @@ namespace TweaksOfYore.Patches.UI {
             return timeAttack.summitStamper.isAlps3 && !timeAttack.isAlps3ShortMap;
         }
 
-        static void Postfix(TimeAttack __instance) {
+        public static void UpdateRecord(TimeAttack timeAttack) {
             if (Plugin.config.ui.displayAccurateRecords.Value == false) {
                 return;
             }
 
-            TimeAttackCategories category = GetCategory(__instance);
-            float time = category.playerPrefTimes[__instance.peakNumber];
+            TimeAttackCategories category = GetCategory(timeAttack);
+            float time = category.playerPrefTimes[timeAttack.peakNumber];
 
             TimeSpan span = TimeSpan.FromSeconds(time);
             float other = span.Seconds + (time - ((int) time));
@@ -136,11 +137,28 @@ namespace TweaksOfYore.Patches.UI {
             string timeString = $"{span.Minutes:00}:{other:00.0000000}";
 
 
-            if (IsBigPeak(__instance) == true) {
+            if (IsBigPeak(timeAttack) == true) {
                 timeString = $"{span.Hours:00}:{timeString}";
             }
 
-            __instance.recordTimeText.text = timeString;
+            timeAttack.recordTimeText.text = timeString;
+        }
+    }
+
+    [HarmonyPatch(typeof(TimeAttack), "CheckRecords")]
+    static class DisplayAccurateRecordsCheck {
+        static void Postfix(TimeAttack __instance) {
+            AccurateRecords.UpdateRecord(__instance);
+        }
+    }
+
+    [HarmonyPatch(typeof(TimeAttack), "BringUpScore")]
+    [HarmonyPatch(MethodType.Enumerator)]
+    static class DisplayAccurateRecordsScore {
+        static void Postfix() {
+            AccurateRecords.UpdateRecord(
+                GameObject.FindObjectOfType<TimeAttack>()
+            );
         }
     }
 }
