@@ -37,7 +37,7 @@ namespace TweaksOfYore.Patches.Entities {
             }
 
             for (int i = 1; i <= 5; i++) {
-                if ($"Eagle_{i}".Equals(__instance.gameObject.name) == false) {
+                if ($"Eagle_{i}".Equals(__instance.eagleParentObj.name) == false) {
                     continue;
                 }
 
@@ -45,7 +45,7 @@ namespace TweaksOfYore.Patches.Entities {
                     continue;
                 }
 
-                __instance.gameObject.SetActive(false);
+                __instance.eagleParentObj.SetActive(false);
             }
         }
     }
