@@ -124,6 +124,10 @@ namespace TweaksOfYore.Patches.UI {
         }
 
         public static void UpdateRecord(TimeAttack timeAttack) {
+            if (timeAttack == null) {
+                return;
+            }
+
             if (Plugin.config.ui.displayAccurateRecords.Value == false) {
                 return;
             }
