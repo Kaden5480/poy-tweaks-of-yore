@@ -32,6 +32,10 @@ namespace TweaksOfYore.Patches.Entities {
     [HarmonyPatch(typeof(Mermaid), "LoadMermaidStuff")]
     static class DisableEagles {
         static void Postfix(Mermaid __instance) {
+            if (__instance.eagleParentObj == null) {
+                return;
+            }
+
             if (Plugin.config.entities.disableEagles.Value == false) {
                 return;
             }
