@@ -14,6 +14,7 @@ namespace TweaksOfYore.Config {
         public ConfigEntry<bool> increaseFovRange;
         public ConfigEntry<bool> reduceWelkinFog;
         public ConfigEntry<bool> muteOnUnfocus;
+        public ConfigEntry<bool> disableExhale;
 
 #elif MELONLOADER
         public MelonPreferences_Entry<bool> skipCleaningItems;
@@ -21,6 +22,7 @@ namespace TweaksOfYore.Config {
         public MelonPreferences_Entry<bool> increaseFovRange;
         public MelonPreferences_Entry<bool> reduceWelkinFog;
         public MelonPreferences_Entry<bool> muteOnUnfocus;
+        public MelonPreferences_Entry<bool> disableExhale;
 
 #endif
     }

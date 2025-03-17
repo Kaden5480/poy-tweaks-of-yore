@@ -76,6 +76,10 @@ namespace TweaksOfYore {
                 "Misc", "muteOnUnfocus", false,
                 "Whether to mute the game when it's no longer in focus"
             );
+            config.misc.disableExhale = Config.Bind(
+                "Misc", "disableExhale", false,
+                "Whether to disable the random exhale particle effect"
+            );
 
             // Speedrun
             config.speedrun.pocketwatch = Config.Bind(
@@ -112,6 +116,8 @@ namespace TweaksOfYore {
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.SkipCleaningItems));
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.IncreaseFovRange));
             Harmony.CreateAndPatchAll(typeof(Patches.Misc.ReduceWelkinFog));
+            Harmony.CreateAndPatchAll(typeof(Patches.Misc.DisableExhale));
+            Harmony.CreateAndPatchAll(typeof(Patches.Misc.DisableExhalePitches));
         }
 
         /**
@@ -198,6 +204,7 @@ namespace TweaksOfYore {
             config.misc.increaseFovRange = misc.CreateEntry<bool>("increaseFovRange", false);
             config.misc.reduceWelkinFog = misc.CreateEntry<bool>("reduceWelkinFog", false);
             config.misc.muteOnUnfocus = misc.CreateEntry<bool>("muteOnUnfocus", false);
+            config.misc.disableExhale = misc.CreateEntry<bool>("disableExhale", false);
 
             // Speedrun
             MelonPreferences_Category speedrun = MelonPreferences.CreateCategory("TweaksOfYore_Speedrun");

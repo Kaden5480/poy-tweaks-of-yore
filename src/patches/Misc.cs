@@ -177,4 +177,35 @@ namespace TweaksOfYore.Patches.Misc {
             }
         }
     }
+
+    /**
+     * <summary>
+     * Disables random exhales.
+     * </summary>
+     */
+    [HarmonyPatch(typeof(RandomExhalePebble), "RandomExhale")]
+    static class DisableExhale {
+        static bool Prefix() {
+            if (Plugin.config.misc.disableExhale.Value == false
+                || Plugin.config.speedrun.fullGame.Value == true
+            ) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(RandomExhalePebble), "RandomExhaleFromPitchClimbing")]
+    static class DisableExhalePitches {
+        static bool Prefix() {
+            if (Plugin.config.misc.disableExhale.Value == false
+                || Plugin.config.speedrun.fullGame.Value == true
+            ) {
+                return true;
+            }
+
+            return false;
+        }
+    }
 }
