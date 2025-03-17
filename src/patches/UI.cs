@@ -124,7 +124,7 @@ namespace TweaksOfYore.Patches.UI {
         }
 
         public static void UpdateRecord(TimeAttack timeAttack) {
-            if (timeAttack == null) {
+            if (timeAttack == null || timeAttack.recordTimeText == null) {
                 return;
             }
 
