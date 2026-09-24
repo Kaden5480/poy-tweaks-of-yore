@@ -45,7 +45,6 @@ namespace TweaksOfYore {
          */
         internal static void SceneLoad() {
             Patches.Misc.DisableSnowFallParticles();
-            Patches.Misc.MuteOnUnfocus.SceneLoad();
         }
 
         /**
@@ -54,7 +53,6 @@ namespace TweaksOfYore {
          * </summary>
          */
         internal static void SceneUnload() {
-            Patches.Misc.MuteOnUnfocus.SceneUnload();
         }
     }
 }

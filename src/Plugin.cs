@@ -27,14 +27,18 @@ namespace TweaksOfYore {
         private void Awake() {
             instance = this;
 
+            TweaksOfYore.Config.Init(this.Config);
+
             Patcher.Awake();
 
             SceneLoads.AddLoadListener(delegate {
+                Cache.FindObjects();
                 Patcher.SceneLoad();
             });
 
             SceneLoads.AddUnloadListener(delegate {
                 Patcher.SceneUnload();
+                Cache.Clear();
             });
 
             if (AccessTools.AllAssemblies().FirstOrDefault(

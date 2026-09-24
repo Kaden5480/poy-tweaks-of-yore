@@ -2,7 +2,6 @@ using System.Reflection;
 
 using HarmonyLib;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace TweaksOfYore.Patches {
@@ -124,7 +123,6 @@ namespace TweaksOfYore.Patches {
          * </summary>
          */
         internal static class MuteOnUnfocus {
-            private static AudioMixer mixer = null;
             private static float oldLevel = -80f;
             private static bool isMuted = false;
 
@@ -133,8 +131,8 @@ namespace TweaksOfYore.Patches {
                     return;
                 }
 
-                mixer.GetFloat("MasterVolume", out oldLevel);
-                mixer.SetFloat("MasterVolume", -80f);
+                Cache.mixer.GetFloat("MasterVolume", out oldLevel);
+                Cache.mixer.SetFloat("MasterVolume", -80f);
                 isMuted = true;
             }
 
@@ -143,26 +141,13 @@ namespace TweaksOfYore.Patches {
                     return;
                 }
 
-                mixer.SetFloat("MasterVolume", oldLevel);
+                Cache.mixer.SetFloat("MasterVolume", oldLevel);
                 isMuted = false;
-            }
-
-            internal static void SceneLoad() {
-                AudioMixerOptions mixerOptions = GameObject.FindObjectOfType<AudioMixerOptions>();
-                if (mixerOptions == null) {
-                    return;
-                }
-
-                mixer = mixerOptions.mixer;
-            }
-
-            internal static void SceneUnload() {
-                mixer = null;
             }
 
             internal static void Update() {
                 if (Config.muteOnUnfocus.Value == false
-                    || mixer == null
+                    || Cache.mixer == null
                 ) {
                     return;
                 }
