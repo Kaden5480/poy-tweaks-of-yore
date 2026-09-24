@@ -1,4 +1,5 @@
 # poy-tweaks-of-yore
+![UILib](https://img.shields.io/badge/Made%20with-UILib-e24a8c?style=flat&link=https%3A%2F%2Fgithub.com%2FKaden5480%2Fpoy-ui-lib%2F)
 ![Code size](https://img.shields.io/github/languages/code-size/Kaden5480/poy-tweaks-of-yore?color=5c85d6)
 ![Open issues](https://img.shields.io/github/issues/Kaden5480/poy-tweaks-of-yore?color=d65c5c)
 ![License](https://img.shields.io/github/license/Kaden5480/poy-tweaks-of-yore?color=a35cd6)
@@ -35,6 +36,10 @@ A quality of life mod for
 If you haven't installed BepInEx yet, follow the install instructions here:
 - [Windows](https://github.com/Kaden5480/modloader-instructions#bepinex-windows)
 - [Linux](https://github.com/Kaden5480/modloader-instructions#bepinex-linux)
+
+### UILib
+If you haven't installed UILib yet, follow the install instructions here:
+- [UILib](https://github.com/Kaden5480/poy-ui-lib/?tab=readme-ov-file#installing)
 
 ### Tweaks of Yore
 - Download the latest BepInEx release
