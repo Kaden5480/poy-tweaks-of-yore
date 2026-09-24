@@ -7,22 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweaksOfYore", "TweaksOfYor
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug-BepInEx|Any CPU = Debug-BepInEx|Any CPU
-		Debug-MelonLoader|Any CPU = Debug-MelonLoader|Any CPU
-		Release-BepInEx|Any CPU = Release-BepInEx|Any CPU
-		Release-MelonLoader|Any CPU = Release-MelonLoader|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Debug-BepInEx|Any CPU.ActiveCfg = Debug-BepInEx|Any CPU
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Debug-BepInEx|Any CPU.Build.0 = Debug-BepInEx|Any CPU
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Release-BepInEx|Any CPU.ActiveCfg = Release-BepInEx|Any CPU
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Release-BepInEx|Any CPU.Build.0 = Release-BepInEx|Any CPU
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Debug-MelonLoader|Any CPU.ActiveCfg = Debug-MelonLoader|Any CPU
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Debug-MelonLoader|Any CPU.Build.0 = Debug-MelonLoader|Any CPU
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Release-MelonLoader|Any CPU.ActiveCfg = Release-MelonLoader|Any CPU
-		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Release-MelonLoader|Any CPU.Build.0 = Release-MelonLoader|Any CPU
+		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5103C74E-1C4A-4904-A841-436E54B3AC21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

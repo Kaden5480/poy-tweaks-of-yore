@@ -7,36 +7,36 @@ using HarmonyLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TweaksOfYore.Patches.Entities {
-    /**
-     * <summary>
-     * Disables the cabin goat object.
-     * </summary>
-     */
-    [HarmonyPatch(typeof(CabinGoatReact), "StartEvent")]
-    static class DisableCabinGoat {
-        static void Prefix(CabinGoatReact __instance) {
-            if (Plugin.config.entities.disableCabinGoat.Value == false) {
+namespace TweaksOfYore.Patches {
+    internal static class Entities {
+        /**
+         * <summary>
+         * Disables the cabin goat object.
+         * </summary>
+         */
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(CabinGoatReact), "StartEvent")]
+        private static void DisableCabinGoat(CabinGoatReact __instance) {
+            if (Config.disableCabinGoat.Value == false) {
                 return;
             }
 
             __instance.gameObject.SetActive(false);
         }
-    }
 
-    /**
-     * <summary>
-     * Disables the eagle game objects if they have been collected.
-     * </summary>
-     */
-    [HarmonyPatch(typeof(Mermaid), "LoadMermaidStuff")]
-    static class DisableEagles {
-        static void Postfix(Mermaid __instance) {
+        /**
+         * <summary>
+         * Disables the eagle game objects if they have been collected.
+         * </summary>
+         */
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Mermaid), "LoadMermaidStuff")]
+        private static void DisableEagles(Mermaid __instance) {
             if (__instance.eagleParentObj == null) {
                 return;
             }
 
-            if (Plugin.config.entities.disableEagles.Value == false) {
+            if (Config.disableEagles.Value == false) {
                 return;
             }
 
@@ -52,17 +52,16 @@ namespace TweaksOfYore.Patches.Entities {
                 __instance.eagleParentObj.SetActive(false);
             }
         }
-    }
 
-    /**
-     * <summary>
-     * Disables swans at the castle.
-     * </summary>
-     */
-    [HarmonyPatch(typeof(BirdFlock), "Awake")]
-    static class DisableSwans {
-        static void Postfix(BirdFlock __instance) {
-            if (Plugin.config.entities.disableSwans.Value == false) {
+        /**
+         * <summary>
+         * Disables swans at the castle.
+         * </summary>
+         */
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(BirdFlock), "Awake")]
+        private static void DisableSwans(BirdFlock __instance) {
+            if (Config.disableSwans.Value == false) {
                 return;
             }
 
@@ -72,21 +71,19 @@ namespace TweaksOfYore.Patches.Entities {
 
             __instance.gameObject.SetActive(false);
         }
-    }
 
-    /**
-     * <summary>
-     * Lower the volume for seagulls at Mara's Arch.
-     * </summary>
-     */
-    [HarmonyPatch(typeof(Bird), "BirdGetHitSound")]
-    static class LowerMarasArchSeagullVolume {
-        static float defaultVolume = 0.85f;
+        /**
+         * <summary>
+         * Lower the volume for seagulls at Mara's Arch.
+         * </summary>
+         */
+        private static float defaultVolume = 0.85f;
+        private static float volumeInject = 0f;
 
-        public static float volumeInject;
-
-        static void Prefix() {
-            if (Plugin.config.entities.lowerMarasArchSeagullVolume.Value == true
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Bird), "BirdGetHitSound")]
+        private static void MarasArchPrefix() {
+            if (Config.lowerMarasArchSeagullVolume.Value == true
                 && "Alps_3_SeaArch".Equals(SceneManager.GetActiveScene().name)
             ) {
                 volumeInject = 0.3f;
@@ -96,14 +93,17 @@ namespace TweaksOfYore.Patches.Entities {
             }
         }
 
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(Bird), "BirdGetHitSound")]
         static IEnumerable<CodeInstruction> Transpiler(
             IEnumerable<CodeInstruction> insts
         ) {
-            int times = 0;
-            FieldInfo volumeInjectInfo = typeof(LowerMarasArchSeagullVolume).GetField(
-                nameof(volumeInject),
-                BindingFlags.Public | BindingFlags.Static
+            FieldInfo volumeInjectInfo = AccessTools.Field(
+                typeof(Entities),
+                nameof(volumeInject)
             );
+
+            int times = 0;
 
             foreach (CodeInstruction inst in insts) {
                 if (inst.LoadsConstant(defaultVolume) == true) {

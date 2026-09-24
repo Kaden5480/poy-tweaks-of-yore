@@ -9,12 +9,10 @@ A quality of life mod for
 # Overview
 - [Features](#features)
 - [Installing](#installing)
-    - [BepInEx](#bepinex)
-    - [MelonLoader](#melonloader)
 - [Building from source](#building-from-source)
     - [Dotnet](#dotnet-build)
     - [Visual Studio](#visual-studio-build)
-    - [Custom game locations](#custom-game-locations)
+    - [Build configuration](#build-configuration)
 
 # Features
 - Disable the goat on the Alps cabin
@@ -33,7 +31,7 @@ A quality of life mod for
 - See more accurate time records with the pocketwatch open
 
 # Installing
-## BepInEx
+### BepInEx
 If you haven't installed BepInEx yet, follow the install instructions here:
 - [Windows](https://github.com/Kaden5480/modloader-instructions#bepinex-windows)
 - [Linux](https://github.com/Kaden5480/modloader-instructions#bepinex-linux)
@@ -44,26 +42,13 @@ If you haven't installed BepInEx yet, follow the install instructions here:
 - The compressed zip will contain a `plugins` directory.
 - Copy the files in `plugins` to `BepInEx/plugins` in your game directory.
 
-## MelonLoader
-If you haven't installed MelonLoader yet, follow the install instructions here:
-- [Windows](https://github.com/Kaden5480/modloader-instructions#melonloader-windows)
-- [Linux](https://github.com/Kaden5480/modloader-instructions#melonloader-linux)
-
-### Tweaks of Yore
-- Download the latest release
-[here](https://github.com/Kaden5480/poy-tweaks-of-yore/releases).
-- The compressed zip file will contain a `Mods` directory.
-- Copy the files from `Mods` to `Mods` in your game directory.
-
 # Building from source
 Whichever approach you use for building from source, the resulting
 plugin/mod can be found in `bin/`.
 
 The following configurations are supported:
-- Debug-BepInEx
-- Release-BepInEx
-- Debug-MelonLoader
-- Release-MelonLoader
+- Debug
+- Release
 
 ## Dotnet build
 To build with dotnet, run the following command, replacing
@@ -76,18 +61,22 @@ dotnet build -c <configuration>
 To build with Visual Studio, open TweaksOfYore.sln and build by pressing ctrl + shift + b,
 or by selecting Build -> Build Solution.
 
-## Custom game locations
-If you installed Peaks of Yore in a custom game location, you may require
-an extra file to configure the build so it knows where to find the Peaks of Yore game
-libraries.
+## Build configuration
+The following can be configured:
+- The path Peaks of Yore is installed at.
+- Whether the mod should automatically install on build.
 
-The file must be in the root of this repository and must be called "GamePath.props".
+Note that all of these properties are optional.
 
-Below gives an example where Peaks of Yore is installed on the F drive:
+The configuration file must be in the root of this repository and must be called `Config.props`.
 ```xml
 <Project>
   <PropertyGroup>
+    <!-- For example, if peaks is installed under F: -->
     <GamePath>F:\Games\Peaks of Yore</GamePath>
+
+    <!-- Add this option if you want to install after building -->
+    <InstallAfterBuild>true</InstallAfterBuild>
   </PropertyGroup>
 </Project>
 ```
