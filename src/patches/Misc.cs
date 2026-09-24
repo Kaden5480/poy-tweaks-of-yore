@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 
 using HarmonyLib;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TweaksOfYore.Patches {
     internal static class Misc {
@@ -109,7 +110,7 @@ namespace TweaksOfYore.Patches {
             }
 
             // Only run on welkin pass
-            if ("Alps2_5_WelkinPass".Equals(SceneManager.GetActiveScene().name) == false) {
+            if ("Alps2_5_WelkinPass".Equals(Cache.scene.name) == false) {
                 return;
             }
 
@@ -177,6 +178,53 @@ namespace TweaksOfYore.Patches {
             }
 
             return false;
+        }
+
+        /**
+         * <summary>
+         * Extends the distance which you can reach the "return to cabin" bag from.
+         * </summary>
+         */
+        private static float leavePeakSceneDefault = 1.35f;
+        private static float leavePeakSceneInject = 0f;
+
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(LeavePeakScene), "Update")]
+        private static IEnumerable<CodeInstruction> ExtendLeavePeakScene(
+            IEnumerable<CodeInstruction> insts
+        ) {
+            FieldInfo leavePeakSceneInjectInfo = AccessTools.Field(
+                typeof(Misc), nameof(leavePeakSceneInject)
+            );
+
+            IEnumerable<CodeInstruction> result = Helper.Replace(insts,
+                new[] {
+                    new CodeInstruction(OpCodes.Ldc_R4, leavePeakSceneDefault),
+                    new CodeInstruction(OpCodes.Ldarg_0),
+                },
+                new[] {
+                    new CodeInstruction(OpCodes.Ldsfld, leavePeakSceneInjectInfo),
+                    new CodeInstruction(OpCodes.Ldarg_0),
+                }
+            );
+
+            foreach (CodeInstruction inst in result) {
+                Plugin.LogDebug(Helper.InstToString(inst));
+                yield return inst;
+            }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(LeavePeakScene), "Update")]
+        private static void ExtendLeavePeakUpdate() {
+            if (Config.fullGame.Value == true
+                || Config.extendReturnToCabinBag.Value == false
+            ) {
+                leavePeakSceneInject = leavePeakSceneDefault;
+                return;
+            }
+
+            leavePeakSceneInject = 3f;
         }
     }
 }

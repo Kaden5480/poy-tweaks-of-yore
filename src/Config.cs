@@ -38,6 +38,9 @@ namespace TweaksOfYore {
         [Field("Disable Snow Fall Particles")]
         internal static ConfigEntry<bool> disableSnowFallParticles { get; private set; }
 
+        [Field("Extend Return To Cabin Bag")]
+        internal static ConfigEntry<bool> extendReturnToCabinBag { get; private set; }
+
         [Field("Increase FOV Range")]
         internal static ConfigEntry<bool> increaseFovRange { get; private set; }
 
@@ -70,11 +73,11 @@ namespace TweaksOfYore {
             );
             disableSwans = configFile.Bind(
                 "Entities", "disableSwans", false,
-                "Whether to disable swans at the castle."
+                "Whether to disable the swans at the castle."
             );
             lowerMarasArchSeagullVolume = configFile.Bind(
                 "Entities", "lowerMarasArchSeagullVolume", false,
-                "Whether to lower the volume of seagulls at Mara's Arch."
+                "Whether to lower the volume of seagulls on Mara's Arch."
             );
 
             // Inventory
@@ -107,6 +110,11 @@ namespace TweaksOfYore {
             disableSnowFallParticles = configFile.Bind(
                 "Misc", "disableSnowFallParticles", false,
                 "Whether to disable snow fall particle effects."
+            );
+            extendReturnToCabinBag = configFile.Bind(
+                "Misc", "extendReturnToCabinBag", false,
+                "Whether to extend the distance which the \"Return to Cabin\" bag"
+                + " can be reached from."
             );
             increaseFovRange = configFile.Bind(
                 "Misc", "increaseFovRange", false,

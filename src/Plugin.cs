@@ -31,8 +31,8 @@ namespace TweaksOfYore {
 
             Patcher.Awake();
 
-            SceneLoads.AddLoadListener(delegate {
-                Cache.FindObjects();
+            SceneLoads.AddLoadListener((Scene scene) => {
+                Cache.FindObjects(scene);
                 Patcher.SceneLoad();
             });
 
