@@ -9,6 +9,40 @@ namespace TweaksOfYore.Patches {
     internal static class UI {
         /**
          * <summary>
+         * Always display the pocketwatch tutorials.
+         * </summary>
+         */
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(TimeAttack), "Update")]
+        private static void AlwaysDisplayTATutorial(TimeAttack __instance) {
+            // It doesn't seem easy to tell if the normal tutorial coroutines
+            // are running, so not resetting the canvas groups back to
+            // an expected state when this patch is disabled may
+            // cause them to stay visible (provided this patch
+            // was disabled while the pocketwatch was open)
+            // I'm fine with leaving this issue in for now, since
+            // it's not game breaking and should be resolved by
+            // re-enabling this patch or restarting the level
+            if (Config.alwaysDisplayTATutorial.Value == false) {
+                return;
+            }
+
+            CanvasGroup recordDisplayTut = __instance.recordDisplayTut;
+            CanvasGroup scoreboardDisplayTut = __instance.scoreboardDisplayTut;
+
+            float target = (__instance.isOpenNow) ? 1f : 0f;
+
+            recordDisplayTut.alpha = Mathf.MoveTowards(
+                recordDisplayTut.alpha, target, 3f * Time.deltaTime
+            );
+
+            scoreboardDisplayTut.alpha = Mathf.MoveTowards(
+                scoreboardDisplayTut.alpha, target, 3f * Time.deltaTime
+            );
+        }
+
+        /**
+         * <summary>
          * Disables the crux notifications.
          * </summary>
          */

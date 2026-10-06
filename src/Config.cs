@@ -22,6 +22,9 @@ namespace TweaksOfYore {
         internal static ConfigEntry<bool> disableBeltRopeDetach { get; private set; }
 
         // UI
+        [Field("Always Display TA Tutorial")]
+        internal static ConfigEntry<bool> alwaysDisplayTATutorial { get; private set; }
+
         [Field("Disable Crux Notifications")]
         internal static ConfigEntry<bool> disableCruxNotifications { get; private set; }
 
@@ -88,6 +91,11 @@ namespace TweaksOfYore {
             );
 
             // UI
+            alwaysDisplayTATutorial = configFile.Bind(
+                "UI", "alwaysDisplayTATutorial", false,
+                "Whether the Time Attack tutorial should always"
+                + " be visible when the pocketwatch is opened."
+            );
             disableCruxNotifications = configFile.Bind(
                 "UI", "disableCruxNotifications", false,
                 "Whether to disable crux notifications."
