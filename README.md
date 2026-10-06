@@ -31,6 +31,8 @@ A quality of life mod for
 - Specific options for only enabling patches permitted in pocketwatch% or full game runs
 - Mute the game when it's no longer in focus
 - See more accurate time records with the pocketwatch open
+- See explicit keybinds in the pocketwatch tutorial, instead of the default vague ones
+- Always display the pocketwatch tutorial
 
 # Installing
 ### BepInEx
