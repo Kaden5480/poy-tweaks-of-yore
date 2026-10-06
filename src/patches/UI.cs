@@ -195,5 +195,51 @@ namespace TweaksOfYore.Patches {
                 GameObject.FindObjectOfType<TimeAttack>()
             );
         }
+
+        /**
+         * <summary>
+         * Displays explicit keybinds instead of vague ones
+         * in the time attack tutorials.
+         * </summary>
+         */
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(TimeAttack), "Start")]
+        private static void DisplayExplicitTAKeybinds() {
+            if (Config.displayExplicitTAKeybinds.Value == false) {
+                return;
+            }
+
+            string leftArm = Util.GetKeybindByName("Arm Left");
+            string rightArm = Util.GetKeybindByName("Arm Right");
+            string interact = Util.GetKeybindByName("Interact");
+
+            if (Cache.pocketwatchTutText != null) {
+                Cache.pocketwatchTutText.text
+                    = $"Press \"{interact}\" to toggle Time Attack on or off.";
+            }
+
+            if (Cache.recordTutText != null) {
+                Cache.recordTutText.text
+                    = $"When Pocket Watch is open, press \"{rightArm}\""
+                    + " to toggle the record display next to the timer.";
+            }
+
+            if (Cache.scoreboardTutText != null) {
+                Cache.scoreboardTutText.text
+                    = $"While Pocket Watch is open, press \"{leftArm}\""
+                    + " to toggle only opening the scoreboard if a record"
+                    + " is set at summit.";
+            }
+
+            // The size of the scoreboard tutorial should also
+            // be copied to the record tutorial, for consistent sizing.
+            if (Cache.scoreboardTutBg != null && Cache.recordTutBg != null) {
+                Cache.recordTutBg.sizeDelta
+                    = Cache.scoreboardTutBg.sizeDelta;
+
+                Cache.recordTutBg.anchoredPosition
+                    = Cache.scoreboardTutBg.anchoredPosition;
+            }
+        }
     }
 }

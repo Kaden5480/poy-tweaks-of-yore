@@ -34,6 +34,9 @@ namespace TweaksOfYore {
         [Field("Display Accurate Records")]
         internal static ConfigEntry<bool> displayAccurateRecords { get; private set; }
 
+        [Field("Display Explicit TA Keybinds")]
+        internal static ConfigEntry<bool> displayExplicitTAKeybinds { get; private set; }
+
         // Misc
         [Field("Skip Cleaning Items")]
         internal static ConfigEntry<bool> skipCleaningItems { get; private set; }
@@ -93,7 +96,7 @@ namespace TweaksOfYore {
             // UI
             alwaysDisplayTATutorial = configFile.Bind(
                 "UI", "alwaysDisplayTATutorial", false,
-                "Whether the Time Attack tutorial should always"
+                "Whether the time attack tutorial should always"
                 + " be visible when the pocketwatch is opened."
             );
             disableCruxNotifications = configFile.Bind(
@@ -108,6 +111,12 @@ namespace TweaksOfYore {
                 "UI", "displayAccurateRecords", false,
                 "Whether to display accurate time records with the"
                 + " pocketwatch open."
+            );
+            displayExplicitTAKeybinds = configFile.Bind(
+                "UI", "displayExplicitTAKeybinds", false,
+                "Whether to display explicit keybinds in the time attack"
+                + " tutorial, instead of vague ones such as \"Interact\""
+                + " and \"Left Trigger\""
             );
 
             // Misc
