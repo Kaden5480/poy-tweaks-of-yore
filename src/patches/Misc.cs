@@ -197,7 +197,7 @@ namespace TweaksOfYore.Patches {
                 typeof(Misc), nameof(leavePeakSceneInject)
             );
 
-            IEnumerable<CodeInstruction> result = Helper.Replace(insts,
+            return Helper.Replace(insts,
                 new[] {
                     new CodeInstruction(OpCodes.Ldc_R4, leavePeakSceneDefault),
                     new CodeInstruction(OpCodes.Ldarg_0),
@@ -207,11 +207,6 @@ namespace TweaksOfYore.Patches {
                     new CodeInstruction(OpCodes.Ldarg_0),
                 }
             );
-
-            foreach (CodeInstruction inst in result) {
-                Plugin.LogDebug(Helper.InstToString(inst));
-                yield return inst;
-            }
         }
 
         [HarmonyPrefix]
