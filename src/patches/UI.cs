@@ -30,6 +30,11 @@ namespace TweaksOfYore.Patches {
             CanvasGroup recordDisplayTut = __instance.recordDisplayTut;
             CanvasGroup scoreboardDisplayTut = __instance.scoreboardDisplayTut;
 
+            if (__instance.recordDisplayTut == null
+                || __instance.scoreboardDisplayTut == null) {
+                return;
+            }
+
             float target = (__instance.isOpenNow) ? 1f : 0f;
 
             recordDisplayTut.alpha = Mathf.MoveTowards(

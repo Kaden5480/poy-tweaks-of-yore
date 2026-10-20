@@ -42,12 +42,19 @@ namespace TweaksOfYore {
 
             player = Util.GetFieldValue<TimeAttack, Rewired.Player>(timeAttack, "player");
 
-            pocketwatchTutText = timeAttack.pocketwatchDisplayTut.GetComponentInChildren<Text>();
-            recordTutText = timeAttack.recordDisplayTut.GetComponentInChildren<Text>();
-            scoreboardTutText = timeAttack.scoreboardDisplayTut.GetComponentInChildren<Text>();
+            if (timeAttack.pocketwatchDisplayTut != null) {
+                pocketwatchTutText = timeAttack.pocketwatchDisplayTut.GetComponentInChildren<Text>();
+            }
 
-            recordTutBg = GetImageTransformFor(timeAttack.recordDisplayTut.gameObject);
-            scoreboardTutBg = GetImageTransformFor(timeAttack.scoreboardDisplayTut.gameObject);
+            if (timeAttack.recordDisplayTut != null) {
+                recordTutText = timeAttack.recordDisplayTut.GetComponentInChildren<Text>();
+                recordTutBg = GetImageTransformFor(timeAttack.recordDisplayTut.gameObject);
+            }
+
+            if (timeAttack.scoreboardDisplayTut != null) {
+                scoreboardTutText = timeAttack.scoreboardDisplayTut.GetComponentInChildren<Text>();
+                scoreboardTutBg = GetImageTransformFor(timeAttack.scoreboardDisplayTut.gameObject);
+            }
         }
 
         internal static void Clear() {
