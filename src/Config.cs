@@ -59,6 +59,9 @@ namespace TweaksOfYore {
         [Field("Disable Exhale")]
         internal static ConfigEntry<bool> disableExhale { get; private set; }
 
+        [Field("Always Quit To Main Menu")]
+        internal static ConfigEntry<bool> alwaysQuitToMenu { get; private set; }
+
         // Speedrun
         [Field("Pocketwatch% Mode")]
         internal static ConfigEntry<bool> pocketwatch { get; private set; }
@@ -149,6 +152,13 @@ namespace TweaksOfYore {
                 "Misc", "disableExhale", false,
                 "Whether to disable the random exhale particle effect."
             );
+            alwaysQuitToMenu = configFile.Bind(
+                "Misc", "alwaysQuitToMenu", false,
+                "Whether to always quit to the main menu. This patch bypasses"
+                + " loading into the workshop cabin first after leaving"
+                + " a custom level."
+            );
+
 
             // Speedrun
             pocketwatch = configFile.Bind(

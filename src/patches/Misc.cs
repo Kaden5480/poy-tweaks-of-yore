@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TweaksOfYore.Patches {
     internal static class Misc {
@@ -220,6 +222,65 @@ namespace TweaksOfYore.Patches {
             }
 
             leavePeakSceneInject = 3f;
+        }
+
+        /**
+         * <summary>
+         * Always quits to the main menu, instead of
+         * going through the workshop cabin first.
+         * </summary>
+         */
+        private static void AlwaysQuitToMenuInject() {
+            // If the patch is disabled, the default behaviour can be used
+            if (Config.alwaysQuitToMenu.Value == false) {
+                SceneManager.LoadScene("Peaks_CustomLevel_Staging");
+                return;
+            }
+
+            // This code would normally run when quitting from the workshop
+            // cabin to the main menu.
+            // It's here just to make sure that the game is initialised to
+            // an expected state, since this patch bypasses the workshop cabin
+            // entirely.
+            CustomLevelManager.control.compendiumName = "";
+            CustomLevelManager.control.desiredFolderPath = "";
+            CustomLevelManager.control.InCustomStages = false;
+            CustomLevelManager.control.inFullPlaytestMode = false;
+            CustomLevelManager.control.LoadLevel_Play = false;
+            CustomLevelManager.control.peakName = "";
+            CustomLevelManager.control.peakNumber = 0;
+            CustomLevelManager.control.requestedEditing = false;
+            LevelEditorManager.inEditorMode = false;
+            LevelEditorManager.insideUIFrame = false;
+            LevelEditorManager.isInWorkshopOrLESettings = false;
+
+            // Return to the main menu
+            SceneManager.LoadScene(0);
+        }
+
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(InGameMenu), "QuitGame")]
+        private static IEnumerable<CodeInstruction> AlwaysQuitToMenu(
+            IEnumerable<CodeInstruction> insts
+        ) {
+            MethodInfo loadSceneInfo = AccessTools.Method(
+                typeof(SceneManager), "LoadScene",
+                new Type[] { typeof(string) }
+            );
+
+            MethodInfo injectInfo = AccessTools.Method(
+                typeof(Misc), nameof(AlwaysQuitToMenuInject)
+            );
+
+            return Helper.Replace(insts,
+                new[] {
+                    new CodeInstruction(OpCodes.Ldstr, "Peaks_CustomLevel_Staging"),
+                    new CodeInstruction(OpCodes.Call, loadSceneInfo),
+                },
+                new[] {
+                    new CodeInstruction(OpCodes.Call, injectInfo)
+                }
+            );
         }
     }
 }
